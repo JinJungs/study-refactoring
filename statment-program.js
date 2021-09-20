@@ -2,6 +2,8 @@ function statment(invoice, plays) {
     const statmentData = {};
     statmentData.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
     statmentData.performances = invoice.performances.map(enrichPerformance);   // 공연 정보를 중간 데이터로 옮김
+    statmentData.totalAmount = totalAmount(statmentData);
+    statmentData.totalVolumeCredits = totalVolumeCredits(statmentData);
     return renderPlainText(statmentData, plays); 
 }
 
@@ -18,15 +20,15 @@ function renderPlainText(data, plays) {
     
     for (let perf of data.performances) {
         
-        result += ' ${perf.play.name}: ${usd(perf.amount)} ($perf.audience}석\n';
+        result += ' ${perf.play.name}: ${usd(perf.amount)} ($perf.audience}석)\n';
     }
     
-    result += '총액: ${usd(totalAmount())}\n'; // 임시 변수였던 format을 함수 호출로 대체
-    result += '적립 포인트: ${totalVolumeCredits()}점\n';
+    result += '총액: ${usd(data.totalAmount)}\n'; // 임시 변수였던 format을 함수 호출로 대체
+    result += '적립 포인트: ${data.totalVolumeCredits}점\n';
     return result;
 }
 
-function totalAmount() {
+function totalAmount(data) {
     let result = 0;
     for (let perf of data.performances) {
         result += perf.amount;
@@ -34,7 +36,7 @@ function totalAmount() {
     return result;
 }
 
-function totalVolumeCredits() {
+function totalVolumeCredits(data) {
     let result = 0;
     for (let perf of data.performances) {
         result += perf.volumeCredits;    // 추출한 함수를 통해 값을 누적
