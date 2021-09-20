@@ -27,26 +27,26 @@ function statment(invoice, plays) {
 
 
 function amoutFor(perf, play) {
-    let thisAmout = 0;
+    let result = 0;
 
     switch(play.type) {
     case "tragedy" :    // 비극
-        thisAmout = 40000;
+        result = 40000;
         if(perf.audience > 30){
-            thisAmout += 1000 * (perf.audience - 30);
+            result += 1000 * (perf.audience - 30);
         }
         break;
     case "comedy" :
-        thisAmout = 30000;
+        result = 30000;
         if(perf.audience > 20){
-            thisAmout += 10000 + 500 * (perf.audience - 20);
+            result += 10000 + 500 * (perf.audience - 20);
         }
-        thisAmout += 300 * perf.audience;
+        result += 300 * perf.audience;
         break;
     default:
         throw new Error('알 수 없는 장로: ${play.type}');
     }
 
-    return thisAmout;
+    return result;
 
 }
