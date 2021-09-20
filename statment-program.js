@@ -7,29 +7,25 @@ function statment(invoice, plays) {
         result += ' ${playFor(perf).name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
     }
     
-    let totalAmount = appleSauce();
-
-    result += '총액: ${usd(totalAmount)}\n'; // 임시 변수였던 format을 함수 호출로 대체
+    result += '총액: ${usd(totalAmount())}\n'; // 임시 변수였던 format을 함수 호출로 대체
     result += '적립 포인트: ${totalVolumeCredits()}점\n';
     return result;
 }
 
-function appleSauce() {
-    let totalAmount = 0;
+function totalAmount() {
+    let result = 0;
     for (let perf of invoice.performances) {
-        totalAmount += amoutFor(perf);
+        result += amoutFor(perf);
     }
-    return totalAmount;
+    return result;
 }
 
-
-
 function totalVolumeCredits() {
-    let volumeCredits = 0;
+    let result = 0;
     for (let perf of invoice.performances) {
-        volumeCredits += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
+        result += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
     }
-    return volumeCredits;
+    return result;
 }
 
 function usd(aNumber) {
