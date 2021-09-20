@@ -1,4 +1,8 @@
 function statment(invoice, plays) {
+    return renderPlainText(invoice, plays);
+}
+
+function renderPlainText(invoice, plays) {
     let result = '청구 내역 (고객명: ${invoice.customer})\n'
     
     for (let perf of invoice.performances) {
