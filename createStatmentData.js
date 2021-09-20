@@ -11,7 +11,7 @@ function enrichPerformance(aPerformance) {
     const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); // 공연료 계산기 생성
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result);     
-    result.amount = amountFor(result);
+    result.amount = calculator.amount;
     result.volumeCredits = volumeCreditsFor(result);
     return result;
 }
