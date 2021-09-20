@@ -7,7 +7,6 @@ function statment(invoice, plays) {
                     minimumFractionDigits: 2}).format;
 
     for (let perf of invoice.performances) {
-        let thisAmout = amoutFor(perf);   // 추출한 함수를 이용
 
         // 포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -15,8 +14,8 @@ function statment(invoice, plays) {
         if("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
 
         // 청구 내역을 출력한다.
-        result += ' ${playFor(perf).name}: ${format(thisAmout/100)} ($perf.audience}석\n';
-        totalAmount += thisAmout;
+        result += ' ${playFor(perf).name}: ${format(amoutFor(perf)/100)} ($perf.audience}석\n';
+        totalAmount += amoutFor(perf);
     }
 
     result += '총액: ${format(totalAmount/100)}\n';
