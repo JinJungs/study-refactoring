@@ -10,9 +10,9 @@ export default function createStatmentData(invoice, plays) {
 function enrichPerformance(aPerformance) {
     const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); // 공연료 계산기 생성
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
-    result.play = playFor(result);     
+    result.play = calculator.play;     
     result.amount = calculator.amount;
-    result.volumeCredits = volumeCreditsFor(result);
+    result.volumeCredits = calculator.volumeCredits;
     return result;
 }
 
@@ -77,12 +77,7 @@ function totalVolumeCredits(data) {
 
 
 function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    if("comedy" === playFor(aPerformance).type)
-        result += Math.floor(aPerformance.audience / 5);
-    return result;
-
+    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).volumeCredits;
 }
 
 function playFor(aPerformance) {
@@ -90,5 +85,5 @@ function playFor(aPerformance) {
 }
 
 function amountFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance0)).amount;
+    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).amount;
 }
