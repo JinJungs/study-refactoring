@@ -8,11 +8,9 @@ function statment(invoice, plays) {
         result += ' ${playFor(perf).name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
         totalAmount += amoutFor(perf);
     }
-    
-    let volumeCredits = 0;
-    for (let perf of invoice.performances) {
-        volumeCredits += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
-    }
+
+    // here
+    let volumeCredits = totalVolumeCredits();
 
     result += '총액: ${usd(totalAmount/100)}\n'; // 임시 변수였던 format을 함수 호출로 대체
     result += '적립 포인트: ${volumeCredits}점\n';
@@ -62,4 +60,12 @@ function usd(aNumber) {
     return new Intl.NumberFormat("en-Us",
                 {style: "currency", currency: "USD",
                 minimumFractionDigits: 2}).format(aNumber/100);
+}
+
+function totalVolumeCredits() {
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+        volumeCredits += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
+    }
+    return volumeCredits;
 }
