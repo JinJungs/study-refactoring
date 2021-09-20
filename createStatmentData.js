@@ -1,14 +1,10 @@
-function statment(invoice, plays) {
-    return renderPlainText(createStatmentData(invoice, plays));
-}
-
-function createStatmentData(invoice, plays) {
-    const statmentData = {};
-    statmentData.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
-    statmentData.performances = invoice.performances.map(enrichPerformance);   // 공연 정보를 중간 데이터로 옮김
-    statmentData.totalAmount = totalAmount(statmentData);
-    statmentData.totalVolumeCredits = totalVolumeCredits(statmentData);
-    return statmentData;
+export default function createStatmentData(invoice, plays) {
+    const result = {};
+    result.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
+    result.performances = invoice.performances.map(enrichPerformance);   // 공연 정보를 중간 데이터로 옮김
+    result.totalAmount = totalAmount(result);
+    result.totalVolumeCredits = totalVolumeCredits(result);
+    return result;
 }
 
 function enrichPerformance(aPerformance) {
@@ -19,18 +15,6 @@ function enrichPerformance(aPerformance) {
     return result;
 }
 
-function renderPlainText(data) {
-    let result = '청구 내역 (고객명: ${data.customer})\n' // 고객 데이터를 중간 데이터로 옮김
-    
-    for (let perf of data.performances) {
-        
-        result += ' ${perf.play.name}: ${usd(perf.amount)} ($perf.audience}석)\n';
-    }
-    
-    result += '총액: ${usd(data.totalAmount)}\n'; // 임시 변수였던 format을 함수 호출로 대체
-    result += '적립 포인트: ${data.totalVolumeCredits}점\n';
-    return result;
-}
 
 function totalAmount(data) {
     let result = 0;
@@ -52,11 +36,6 @@ function totalVolumeCredits(data) {
         .reduce((total, p) => total + p.volumeCredits, 0);
 }
 
-function usd(aNumber) {
-    return new Intl.NumberFormat("en-Us",
-                {style: "currency", currency: "USD",
-                minimumFractionDigits: 2}).format(aNumber/100);
-}
 
 function volumeCreditsFor(aPerformance) {
     let result = 0;
