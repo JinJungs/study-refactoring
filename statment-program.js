@@ -8,25 +8,7 @@ function statment(invoice, plays) {
 
     for (let perf of invoice.performances) {
         const play = plays[perf.playID];
-        let thisAmout = 0;
-
-        switch(play.type) {
-        case "tragedy" :    // 비극
-            thisAmout = 40000;
-            if(perf.audience > 30){
-                thisAmout += 1000 * (perf.audience - 30);
-            }
-            break;
-        case "comedy" :
-            thisAmout = 30000;
-            if(perf.audience > 20){
-                thisAmout += 10000 + 500 * (perf.audience - 20);
-            }
-            thisAmout += 300 * perf.audience;
-            break;
-        default:
-            throw new Error('알 수 없는 장로: ${play.type}');
-        }
+        let thisAmout = amoutFor(perf, play);   // 추출한 함수를 이용
 
         // 포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -41,4 +23,30 @@ function statment(invoice, plays) {
     result += '총액: ${format(totalAmount/100)}\n';
     result += '적립 포인트: ${volumeCredits}점\n';
     return result;
+}
+
+
+function amoutFor(perf, play) {
+    let thisAmout = 0;
+
+    switch(play.type) {
+    case "tragedy" :    // 비극
+        thisAmout = 40000;
+        if(perf.audience > 30){
+            thisAmout += 1000 * (perf.audience - 30);
+        }
+        break;
+    case "comedy" :
+        thisAmout = 30000;
+        if(perf.audience > 20){
+            thisAmout += 10000 + 500 * (perf.audience - 20);
+        }
+        thisAmout += 300 * perf.audience;
+        break;
+    default:
+        throw new Error('알 수 없는 장로: ${play.type}');
+    }
+
+    return thisAmout;
+
 }
