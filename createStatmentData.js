@@ -50,10 +50,7 @@ class PerformanceCalculator {
         let result = 0;
         switch(this.play.type) {    // 매개변수로 받던 정보를 계산기 필드에서 바로 얻음
         case "tragedy" :    // 비극
-            result = 40000;
-            if(this.performance.audience > 30){
-                result += 1000 * (this.performance.audience - 30);
-            }
+            throw '오류 발생'   // TragedyCalculator를 이용하도록 유도
             break;
         case "comedy" :
             result = 30000;
