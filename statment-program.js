@@ -10,7 +10,7 @@ function statment(invoice, plays) {
 function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result);     
-    result.amout = amountFor(result);
+    result.amount = amountFor(result);
     result.volumeCredits = volumeCreditsFor(result);
     return result;
 }
@@ -30,18 +30,22 @@ function renderPlainText(data, plays) {
 
 function totalAmount(data) {
     let result = 0;
-    for (let perf of data.performances) {
-        result += perf.amount;
-    }
-    return result;
+    // for (let perf of data.performances) {
+    //     result += perf.amount;
+    // }
+    // return result;
+    return data.performances
+        .reduce((total, p) => total + p.amount, 0);
 }
 
 function totalVolumeCredits(data) {
-    let result = 0;
-    for (let perf of data.performances) {
-        result += perf.volumeCredits;    // 추출한 함수를 통해 값을 누적
-    }
-    return result;
+    // let result = 0;
+    // for (let perf of data.performances) {
+    //     result += perf.volumeCredits;    // 추출한 함수를 통해 값을 누적
+    // }
+    // return result;
+    return data.performances
+        .reduce((total, p) => total + p.volumeCredits, 0);
 }
 
 function usd(aNumber) {
