@@ -1,10 +1,11 @@
 function statment(invoice, plays) {
     const statmentData = {};
-    return renderPlainText(statmentData, invoice, plays); // 중간 데이터 구조를 인수로 전달
+    statmentData.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
+    return renderPlainText(statmentData, invoice, plays); 
 }
 
 function renderPlainText(data, invoice, plays) {
-    let result = '청구 내역 (고객명: ${invoice.customer})\n'
+    let result = '청구 내역 (고객명: ${data.customer})\n' // 고객 데이터를 중간 데이터로 옮김
     
     for (let perf of invoice.performances) {
         
