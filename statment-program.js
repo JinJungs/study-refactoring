@@ -28,7 +28,7 @@ function statment(invoice, plays) {
 function amoutFor(aPerformance, play) {
     let result = 0;
 
-    switch(play.type) {
+    switch(playFor(aPerformance).type) {
     case "tragedy" :    // 비극
         result = 40000;
         if(aPerformance.audience > 30){
@@ -43,7 +43,7 @@ function amoutFor(aPerformance, play) {
         result += 300 * aPerformance.audience;
         break;
     default:
-        throw new Error('알 수 없는 경로: ${play.type}');
+        throw new Error('알 수 없는 경로: ${playFor(aPerformance).type}');
     }
 
     return result;
