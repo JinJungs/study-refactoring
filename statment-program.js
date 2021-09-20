@@ -16,8 +16,7 @@ function renderPlainText(data, plays) {
     
     for (let perf of data.performances) {
         
-        // 청구 내역을 출력한다.
-        result += ' ${playFor(perf).name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
+        result += ' ${perf.play.name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
     }
     
     result += '총액: ${usd(totalAmount())}\n'; // 임시 변수였던 format을 함수 호출로 대체
