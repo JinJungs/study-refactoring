@@ -7,16 +7,15 @@ function statment(invoice, plays) {
                     minimumFractionDigits: 2}).format;
 
     for (let perf of invoice.performances) {
-        const play = playFor(perf);
-        let thisAmout = amoutFor(perf, play);   // 추출한 함수를 이용
+        let thisAmout = amoutFor(perf, playFor(perf));   // 추출한 함수를 이용
 
         // 포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
         // 희극 관객 5명마다 추가 포인트를 제공한다.
-        if("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+        if("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
 
         // 청구 내역을 출력한다.
-        result += ' ${play.name}: ${format(thisAmout/100)} ($perf.audience}석\n';
+        result += ' ${playFor(perf).name}: ${format(thisAmout/100)} ($perf.audience}석\n';
         totalAmount += thisAmout;
     }
 
