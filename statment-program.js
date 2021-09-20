@@ -14,6 +14,32 @@ function statment(invoice, plays) {
     return result;
 }
 
+function totalVolumeCredits() {
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+        volumeCredits += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
+    }
+    return volumeCredits;
+}
+
+function usd(aNumber) {
+    return new Intl.NumberFormat("en-Us",
+                {style: "currency", currency: "USD",
+                minimumFractionDigits: 2}).format(aNumber/100);
+}
+
+function volumeCreditsFor(aPerformance) {
+    let result = 0;
+    result += Math.max(aPerformance.audience - 30, 0);
+    if("comedy" === playFor(aPerformance).type)
+        result += Math.floor(aPerformance.audience / 5);
+    return result;
+
+}
+
+function playFor(aPerformance) {
+    return plays[aPerformance.playID];
+}
 
 function amoutFor(aPerformance) {
     let result = 0;
@@ -38,31 +64,4 @@ function amoutFor(aPerformance) {
 
     return result;
 
-}
-
-function playFor(aPerformance) {
-    return plays[aPerformance.playID];
-}
-
-function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    if("comedy" === playFor(aPerformance).type)
-        result += Math.floor(aPerformance.audience / 5);
-    return result;
-
-}
-
-function usd(aNumber) {
-    return new Intl.NumberFormat("en-Us",
-                {style: "currency", currency: "USD",
-                minimumFractionDigits: 2}).format(aNumber/100);
-}
-
-function totalVolumeCredits() {
-    let volumeCredits = 0;
-    for (let perf of invoice.performances) {
-        volumeCredits += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
-    }
-    return volumeCredits;
 }
