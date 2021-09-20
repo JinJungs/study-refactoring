@@ -9,11 +9,8 @@ function statment(invoice, plays) {
         totalAmount += amoutFor(perf);
     }
 
-    // here
-    let volumeCredits = totalVolumeCredits();
-
     result += '총액: ${usd(totalAmount/100)}\n'; // 임시 변수였던 format을 함수 호출로 대체
-    result += '적립 포인트: ${volumeCredits}점\n';
+    result += '적립 포인트: ${totalVolumeCredits()}점\n';
     return result;
 }
 
