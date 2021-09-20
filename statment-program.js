@@ -1,8 +1,9 @@
 function statment(invoice, plays) {
-    return renderPlainText(invoice, plays);
+    const statmentData = {};
+    return renderPlainText(statmentData, invoice, plays); // 중간 데이터 구조를 인수로 전달
 }
 
-function renderPlainText(invoice, plays) {
+function renderPlainText(data, invoice, plays) {
     let result = '청구 내역 (고객명: ${invoice.customer})\n'
     
     for (let perf of invoice.performances) {
