@@ -9,6 +9,7 @@ function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result);     
     result.amout = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
     return result;
 }
 
@@ -36,7 +37,7 @@ function totalAmount() {
 function totalVolumeCredits() {
     let result = 0;
     for (let perf of data.performances) {
-        result += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
+        result += perf.volumeCredits;    // 추출한 함수를 통해 값을 누적
     }
     return result;
 }
