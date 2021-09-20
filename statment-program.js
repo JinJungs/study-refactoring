@@ -1,8 +1,14 @@
 function statment(invoice, plays) {
     const statmentData = {};
     statmentData.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
-    statmentData.performances = invoice.performances;   // 공연 정보를 중간 데이터로 옮김
+    statmentData.performances = invoice.performances.map(enrichPerformance);   // 공연 정보를 중간 데이터로 옮김
     return renderPlainText(statmentData, plays); 
+}
+
+function enrichPerformance(aPerformance) {
+    const result = Object.assign({}, aPerformance); // 얕은 복사 수행
+    result.play = playFor(result);      // 중간데이터에 연극 정보를 저장
+    return result;
 }
 
 function renderPlainText(data, plays) {
