@@ -8,12 +8,17 @@ export default function createStatmentData(invoice, plays) {
 }
 
 function enrichPerformance(aPerformance) {
-    const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); // 공연료 계산기 생성
+    // const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance)); // 공연료 계산기 생성
+    const calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance));    // 생성자 대신 팩토리 함수 이용
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = calculator.play;     
     result.amount = calculator.amount;
     result.volumeCredits = calculator.volumeCredits;
     return result;
+}
+
+function createPerformanceCalculator(aPerformance, aPlay) {
+    return new PerformanceCalculator(aPerformance, aPlay);
 }
 
 class PerformanceCalculator {
