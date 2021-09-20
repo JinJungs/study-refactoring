@@ -87,15 +87,6 @@ function totalVolumeCredits(data) {
         .reduce((total, p) => total + p.volumeCredits, 0);
 }
 
-
-function volumeCreditsFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).volumeCredits;
-}
-
 function playFor(aPerformance) {
     return plays[aPerformance.playID];
-}
-
-function amountFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).amount;
 }
