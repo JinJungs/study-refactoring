@@ -6,7 +6,7 @@
 ## 0.2. 학습 방향
 : 챕터 별 요약이나 새로 알게된 내용은 README에 먼저 적은 후 블로그에 정리해서 포스팅한다.
 
----
+
 <br/>
 
 # 1. 리팩터링 : 첫 번째 예시
@@ -27,6 +27,10 @@
 
 > 간결함이 지혜의 정수일지는 몰라도, 프로그래밍에서만큼은 명료함이 진화할 수 있는 소프트웨어의 정수다.
 
+> 이번 예시를 통해 배울 수 있는 가장 중요한 것은 바로 리팩터링하는 리듬이다. 사람들에게 내가 리팩터링하는 과정을 보여줄 때마다, 각 단계를 굉장히 잘게 나누고 매번 컴파일하고 테스트하여 작동하는 상태로 유지한다는 사실에 놀란다.
+
+> 리팩터링을 효과적으로 하는 핵심은, 단계를 나눠야 더 빠르게 처리할 수 있고, 코드는 절대 깨지지 않으며, 이러한 작은 단계들이 모여서 상당히 큰 변화를 이룰 수 있다는 사실을 깨닫는 것이다.
+
 <br/>
 
 ## 1.2. Refactoring Tips
@@ -41,18 +45,22 @@
 > - 변수 인라인하기 : volumeCredits 변수 제거
 
 > 가변 데이터는 금방 상하기 때문에 나는 데이터를 최대한 불변처럼 취급한다.
-> ```javascript
-> result = Object.assign({}, aPerformance)
-> // 빈 객체에 aPerformance를 얕은 복사
-> // 만약 target(앞) 과 source(뒤)의 객체 중 동일한 키를 갖는 속성이 존재할 경우 그 속성값은 source 객체의 속성 값으로 덮어쓰여짐
-> ```
+> 
+> ex) `Object.assign({}, aPerforamance);`
 
-
+-> 전달받은 데이터를 그대로 사용하지 말고, 복사를 해서 사용하자
 
 
 <br/>
 
 ## 1.3. javascript grammar
+
+### Object.assign()
+```javascript
+result = Object.assign(target, source);
+// target에 source를 얕은 복사
+```
+만약 target과 source의 객체 중 동일한 키를 갖는 속성이 존재할 경우, 그 속성값은 source 객체의 속성 값으로 덮어쓰여짐
 
 ### map()
 ```javascript
@@ -60,4 +68,3 @@
     arr.map(callback(currentValue[, index[, array]])[, thisArg])
 ```
 map은 callback 함수를 각각의 요소에 대해 한번씩 순서대로 불러 그 함수의 반환값으로 새로운 배열을 만듭니다. 
-
