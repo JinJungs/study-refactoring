@@ -7,7 +7,8 @@ function statment(invoice, plays) {
 
 function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
-    result.play = playFor(result);      // 중간데이터에 연극 정보를 저장
+    result.play = playFor(result);     
+    result.amout = amountFor(result);
     return result;
 }
 
@@ -16,7 +17,7 @@ function renderPlainText(data, plays) {
     
     for (let perf of data.performances) {
         
-        result += ' ${perf.play.name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
+        result += ' ${perf.play.name}: ${usd(perf.amount)} ($perf.audience}석\n';
     }
     
     result += '총액: ${usd(totalAmount())}\n'; // 임시 변수였던 format을 함수 호출로 대체
@@ -27,7 +28,7 @@ function renderPlainText(data, plays) {
 function totalAmount() {
     let result = 0;
     for (let perf of data.performances) {
-        result += amoutFor(perf);
+        result += perf.amount;
     }
     return result;
 }
@@ -59,7 +60,7 @@ function playFor(aPerformance) {
     return plays[aPerformance.playID];
 }
 
-function amoutFor(aPerformance) {
+function amountFor(aPerformance) {
     let result = 0;
 
     switch(playFor(aPerformance).type) {
