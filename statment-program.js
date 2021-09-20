@@ -7,7 +7,7 @@ function statment(invoice, plays) {
                     minimumFractionDigits: 2}).format;
 
     for (let perf of invoice.performances) {
-        let thisAmout = amoutFor(perf, playFor(perf));   // 추출한 함수를 이용
+        let thisAmout = amoutFor(perf);   // 추출한 함수를 이용
 
         // 포인트를 적립한다.
         volumeCredits += Math.max(perf.audience - 30, 0);
@@ -25,7 +25,7 @@ function statment(invoice, plays) {
 }
 
 
-function amoutFor(aPerformance, play) {
+function amoutFor(aPerformance) {
     let result = 0;
 
     switch(playFor(aPerformance).type) {
