@@ -1,13 +1,14 @@
 function statment(invoice, plays) {
     const statmentData = {};
     statmentData.customer = invoice.customer;   // 고객 데이터를 중간 데이터로 옮김
-    return renderPlainText(statmentData, invoice, plays); 
+    statmentData.performances = invoice.performances;   // 공연 정보를 중간 데이터로 옮김
+    return renderPlainText(statmentData, plays); 
 }
 
-function renderPlainText(data, invoice, plays) {
+function renderPlainText(data, plays) {
     let result = '청구 내역 (고객명: ${data.customer})\n' // 고객 데이터를 중간 데이터로 옮김
     
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
         
         // 청구 내역을 출력한다.
         result += ' ${playFor(perf).name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
@@ -20,7 +21,7 @@ function renderPlainText(data, invoice, plays) {
 
 function totalAmount() {
     let result = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
         result += amoutFor(perf);
     }
     return result;
@@ -28,7 +29,7 @@ function totalAmount() {
 
 function totalVolumeCredits() {
     let result = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
         result += volumeCreditsFor(perf);    // 추출한 함수를 통해 값을 누적
     }
     return result;
