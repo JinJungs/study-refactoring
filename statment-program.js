@@ -1,18 +1,28 @@
 function statment(invoice, plays) {
-    let totalAmount = 0;
     let result = '청구 내역 (고객명: ${invoice.customer})\n'
     
     for (let perf of invoice.performances) {
         
         // 청구 내역을 출력한다.
         result += ' ${playFor(perf).name}: ${usd(amoutFor(perf))} ($perf.audience}석\n';
-        totalAmount += amoutFor(perf);
     }
+    
+    let totalAmount = appleSauce();
 
-    result += '총액: ${usd(totalAmount/100)}\n'; // 임시 변수였던 format을 함수 호출로 대체
+    result += '총액: ${usd(totalAmount)}\n'; // 임시 변수였던 format을 함수 호출로 대체
     result += '적립 포인트: ${totalVolumeCredits()}점\n';
     return result;
 }
+
+function appleSauce() {
+    let totalAmount = 0;
+    for (let perf of invoice.performances) {
+        totalAmount += amoutFor(perf);
+    }
+    return totalAmount;
+}
+
+
 
 function totalVolumeCredits() {
     let volumeCredits = 0;
